@@ -3,6 +3,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --board-bg: #f5d0a9;
+  --board-border: #8b4513;
+  --black-stone: #000000;
+  --white-stone: #ffffff;
+  --white-stone-border: #808080;
+  --last-move-highlight: #f0e68c;
+  --cell-hover: #ffe4b5;
 }
 
 @theme inline {
@@ -16,6 +23,13 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --board-bg: #8b5a2b;
+    --board-border: #d2b48c;
+    --black-stone: #000000;
+    --white-stone: #f5f5f5;
+    --white-stone-border: #a0a0a0;
+    --last-move-highlight: #8b8000;
+    --cell-hover: #a0522d;
   }
 }
 
@@ -23,4 +37,95 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Add grid columns for the Gomoku board */
+.grid-cols-20 {
+  grid-template-columns: repeat(20, minmax(0, 1fr));
+}
+
+/* Stone styles */
+.stone {
+  transition: transform 0.2s ease;
+  border-radius: 50%;
+  width: 80%;
+  height: 80%;
+}
+
+.stone-black {
+  background-color: var(--black-stone);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.4);
+}
+
+.stone-white {
+  background-color: var(--white-stone);
+  border: 1px solid var(--white-stone-border);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Game button styles */
+.game-button {
+  transition: all 0.2s ease;
+  border-radius: 9999px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.game-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design for the game board */
+@media (max-width: 640px) {
+  .game-container {
+    padding: 0.5rem;
+  }
+  
+  .board-container {
+    max-width: 95vw;
+    overflow-x: auto;
+  }
+}
+
+/* Animation for placing stones */
+@keyframes placeStone {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-place {
+  animation: placeStone 0.3s ease forwards;
+}
+
+/* Last move highlight pulse animation */
+@keyframes highlightPulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+.last-move-highlight {
+  background-color: var(--last-move-highlight);
+  animation: highlightPulse 2s infinite;
 }
